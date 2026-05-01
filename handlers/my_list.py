@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ContextTypes, CallbackQueryHandler
 from database.queries import get_all_movies
 
-PAGE_SIZE = 10
+PAGE_SIZE = 20
 
 
 def _format_movie(movie: dict) -> str:
