@@ -4,7 +4,8 @@ from config import DB_PATH
 
 
 async def add_movie(title: str, year: int, tmdb_id: int, kp_id: str,
-                    genres: str, kp_rating: float, poster_url: str) -> bool:
+                    genres: str, kp_rating: float, poster_url: str,
+                    watched: int = 0) -> bool:
     async with aiosqlite.connect(DB_PATH) as db:
         cursor = await db.execute(
             "SELECT id FROM movies WHERE tmdb_id = ?", (tmdb_id,)
@@ -14,9 +15,9 @@ async def add_movie(title: str, year: int, tmdb_id: int, kp_id: str,
             return False  # фильм уже в списке
 
         await db.execute(
-            """INSERT INTO movies (title, year, tmdb_id, kp_id, genres, kp_rating, poster_url)
-               VALUES (?, ?, ?, ?, ?, ?, ?)""",
-            (title, year, tmdb_id, kp_id, genres, kp_rating, poster_url)
+            """INSERT INTO movies (title, year, tmdb_id, kp_id, genres, kp_rating, poster_url, watched)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (title, year, tmdb_id, kp_id, genres, kp_rating, poster_url, watched)
         )
         await db.commit()
         return True

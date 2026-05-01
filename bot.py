@@ -14,6 +14,7 @@ from handlers.my_list import show_list, list_callback
 from handlers.add_movie import add_movie_start, handle_title_input, pick_movie_callback, WAITING_TITLE
 from handlers.mark_watched import show_unwatched, mark_watched_callback
 from handlers.recommend import show_recommendations, rec_add_callback
+from handlers.import_movies import import_movies
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -37,6 +38,7 @@ def main():
     )
 
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("import", import_movies))
     app.add_handler(add_conv)
     app.add_handler(MessageHandler(filters.Regex("^📋 Мой список$"), show_list))
     app.add_handler(MessageHandler(filters.Regex("^🎲 Рекомендации$"), show_recommendations))
